@@ -22,6 +22,14 @@
     group: zabbix
   notify: restart zabbix-agent
 
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Print installed version
+  debug:
+    var: ansible_facts.packages['zabbix-agent'][0]['version']
+
 - name: Template zabbix-agent configuration
   template:
     src: zabbix_agentd.conf.j2

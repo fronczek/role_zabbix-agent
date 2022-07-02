@@ -1,4 +1,4 @@
-zabbix_operation: "install"
+zabbix_agent_operation: "install"
 
 zabbix_agent_install_from_zabbix_repo: false
 

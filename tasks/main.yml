@@ -1,14 +1,14 @@
 ---
 - name: Debug operation
   debug:
-    var: zabbix_operation
+    var: zabbix_agent_operation
 
 - name: Include install operations
   ansible.builtin.include_tasks: install.yml
-  when: zabbix_operation == "install"
+  when: zabbix_agent_operation == "install"
 
 - name: Include install operations
   ansible.builtin.include_tasks: remove.yml
-  when: zabbix_operation == "remove"
+  when: zabbix_agent_operation == "remove"
 
 ...

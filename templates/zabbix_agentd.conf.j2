@@ -2,7 +2,9 @@ PidFile=/var/run/zabbix/zabbix_agentd.pid
 LogFile={{ zabbix_agent_logfile }}
 LogFileSize=2
 DebugLevel=3
+{% if ansible_facts.packages['zabbix-agent'][0]['version'] is version('1:5.0', '>=') %}
 AllowKey=system.run[*]
+{% endif %}
 
 ServerActive={{ zabbix_agent_server_active }}
 Server={{ zabbix_agent_server }}
