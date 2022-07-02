@@ -1,0 +1,10 @@
+zabbix_operation: "install"
+
+zabbix_agent_install_from_zabbix_repo: false
+
+zabbix_agent_logfile: "/var/log/zabbix/zabbix_agentd.log"
+zabbix_agent_logfile_dir: "/var/log/zabbix"
+
+zabbix_agent_server: "192.168.0.0/16,10.0.0.0/8,172.16.0.0/12"
+zabbix_agent_server_active: "zabbix-server.domain.tld"
+zabbix_agent_metadata: "default-agent-metadata"

@@ -1,0 +1,22 @@
+---
+- name: Stop zabbix agent
+  service:
+    name: zabbix-agent
+    state: stopped
+    enabled: no
+
+- name: Remove a zabbix-agent package
+  apt:
+    name: zabbix-agent
+    state: absent
+
+- name: Remove zabbix-agent configuration
+  file:
+    dest: /etc/zabbix/zabbix_agentd.conf
+    state: absent
+
+- name: Remove zabbix-agent logrotate configuration
+  file:
+    dest: /etc/logrotate.d/zabbix-agent
+    state: absent
+...

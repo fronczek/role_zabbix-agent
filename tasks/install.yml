@@ -1,0 +1,39 @@
+---
+
+- name: Install Zabbix repo from the internet
+  apt:
+    deb: https://repo.zabbix.com/zabbix/5.0/debian/pool/main/z/zabbix-release/zabbix-release_5.0-1+{{ ansible_distribution_release }}_all.deb
+    update_cache: yes
+  when:
+    - ansible_distribution|lower == 'debian'
+    - zabbix_agent_install_from_zabbix_repo
+
+- name: Install a zabbix-agent package
+  apt:
+    name: zabbix-agent
+    state: latest
+    update_cache: yes
+
+- name: Create log dir
+  file:
+    path: "{{ zabbix_agent_logfile_dir }}"
+    state: directory
+    owner: zabbix
+    group: zabbix
+  notify: restart zabbix-agent
+
+- name: Template zabbix-agent configuration
+  template:
+    src: zabbix_agentd.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
+  notify: restart zabbix-agent
+
+- name: Add user zabbix to sudoers
+  lineinfile:
+    path: /etc/sudoers.d/zabbix
+    line: 'zabbix ALL=(ALL) NOPASSWD: ALL'
+    state: present
+    mode: 0644
+    create: yes
+    validate: 'visudo -cf %s'
+...

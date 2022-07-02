@@ -1,0 +1,18 @@
+galaxy_info:
+  description: Install and configure zabbix-agent service
+  author: Artur Fronczek
+  company: HBF MANAGEMENT sp. z o. o.
+  license: GPLv3
+  min_ansible_version: 2.4
+  galaxy_tags:
+    - system
+    - monitoring
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+
+dependencies: []
