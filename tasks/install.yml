@@ -30,11 +30,19 @@
   debug:
     var: ansible_facts.packages['zabbix-agent'][0]['version']
 
-- name: Template zabbix-agent configuration
+- name: Template zabbix-agent default configuration
   template:
     src: zabbix_agentd.conf.j2
     dest: /etc/zabbix/zabbix_agentd.conf
   notify: restart zabbix-agent
+
+- name: Template zabbix-agent custom configuration for physical hosts
+  template:
+    src: "{{item}}.conf.j2"
+    dest: "/etc/zabbix/zabbix_agentd.conf.d/{{item}}.conf"
+  notify: restart zabbix-agent
+  loop: ["smart"]
+  when: ansible_virtualization_role == "host"
 
 - name: Add user zabbix to sudoers
   lineinfile:
